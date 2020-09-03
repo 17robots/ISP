@@ -4,12 +4,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./script/jquery.js"></script>
+    <link rel="stylesheet" href="./style/bootstrap.min.css">
+    <link rel="stylesheet" href="./style/bootstrap-grid.min.css">
+    <link rel="stylesheet" href="./style/bootstrap-reboot.min.css">
     <link rel="text/stylesheet" src="./style/index.css" />
+    <script src="./script/bootstrap.min.js"></script>
+    <script src="./script//bootstrap.bundle.min.js"></script>
     <title>Matthew Dray ISP Project 1</title>
 </head>
 
 <body>
-
+    <div id="B" class="jumbotron jumbotron-fluid">
+        <h3>Matthew Dray</h3>
+        <!-- Video Here -->
+        <h5 class="text-center">Current Time</h5>
+        <h1 class="text-center" id="current-Time"></h1>
+    </div>
+    <div class="container">
+        <div id="C">
+            <div id="factorial">
+                <h2>Factorial Calculator</h2>
+                <form class="container">
+                    <div class="form-group">
+                        <label for="Factorial">Enter The Base Number For The Factorial</label>
+                        <input class="form-control" type="text" id="factorial-input" placeholder="8" />
+                    </div>
+                    <button class="btn btn-dark" id="factorial-button" onclick="calculateFactorial()"
+                        type="submit">Calculate!</button>
+                </form>
+                <div id="result">
+                    <h2>Result</h2>
+                    <div id="result-container" class="jumbotron">
+                        <h1 id="result-header"></h1>
+                    </div>
+                </div>
+            </div>
+            <div id="interactive-anim">
+                <img src="" alt="" id="move-me">
+            </div>
+        </div>
+        <footer>
+            Completed at <time></time>
+        </footer>
+    </div>
+    <script src="script/index.js"></script>
 </body>
 
 </html>
