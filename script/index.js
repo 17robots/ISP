@@ -1,48 +1,39 @@
-const fact = (num, result) => {
-    if (num === 1) {
-        result.innerHTML += num + ' = '
-        return num
-    }
-    else {
-        result.innerHTML += num + ' * '
-        return num * fact(num - 1)
-    }
-}
+$(function () {
+    $('#result').hide()
+    $('#fact-form').submit(calculateFact);
+    $('#fact-close').click(closeFact)
 
-const closeResult = () => {
-    $(function () {
-        $('#result').animate({
-            height: '0'
-        }, 2000)
-    })
-}
-
-const calculateFactorial = e => {
-    const result = document.querySelector("#result-header")
-    const input = document.querySelector("#factorial-input")
-
-    if (input === null) {
-        $(function () {
-            if ($('#result').styles.height === 0) {
-                $('#result').animate({
-                    height: 'auto'
-                }, 2000)
-            }
-        })
-        result.innerHTML += fact(8, result)
-    } else if (parseInt(input) < 0) {
-        alert("Please Enter A Non Negative Number")
-    } else {
-        $(function () {
-            if ($('#result').styles.height === 0) {
-                $('#result').animate({
-                    height: 'auto'
-                }, 2000)
-            }
-        })
-        result.innerHTML += fact(num, result)
+    function closeFact(e) {
+        e.preventDefault()
+        $('#result').hide(500)
     }
 
-    e.preventDefault()
-}
+    function calculateFact(e) {
+        e.preventDefault()
+        var elem = $("#factorial-input").val()
+        var output = $("#result-header")
+        output.text("")
+        $('#result').hide()
+        $('#result').show(500)
+        if (elem === null || elem === "" || isNaN(elem)) {
+            alert("Field Empty Or NaN. Using 8")
+            output.text(fact(8, output))
+        } else if (parseInt(elem) < 0) {
+            output.text("Invalid Data Entry")
+            alert("Please enter a positive number")
+        } else {
+            output.text(fact(parseInt(elem)))
+        }
+    }
 
+    function fact(num) {
+        var total = 1
+        var returnString = ""
+        for (var i = num; i > 1; --i) {
+            returnString = returnString.concat(" " + i + " * ")
+            total *= i
+        }
+        returnString = returnString.concat(" 1 = " + total)
+        return returnString
+    }
+})

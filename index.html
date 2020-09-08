@@ -25,18 +25,18 @@
         <div id="C">
             <div id="factorial">
                 <h2>Factorial Calculator</h2>
-                <form class="container">
+                <form class="container" id="fact-form">
                     <div class="form-group">
-                        <label for="Factorial">Enter The Base Number For The Factorial</label>
-                        <input class="form-control" type="text" id="factorial-input" placeholder="8" />
+                        <input class="form-control" type="text" id="factorial-input"
+                            placeholder="Enter The Base Number For The Factorial" />
                     </div>
-                    <button class="btn btn-dark" id="factorial-button" onclick="calculateFactorial()"
-                        type="submit">Calculate!</button>
+                    <button class="btn btn-dark" id="factorial-button" type="submit">Calculate!</button>
                 </form>
                 <div id="result">
                     <h2>Result</h2>
                     <div id="result-container" class="jumbotron">
                         <h1 id="result-header"></h1>
+                        <button id="fact-close">^</button>
                     </div>
                 </div>
             </div>
