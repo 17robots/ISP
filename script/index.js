@@ -5,6 +5,12 @@ setInterval(function () {
   document.querySelector("#current-Time").innerHTML = date.toLocaleString();
 }, 1000)
 
+function movePic(e) {
+  var elem = document.querySelector("#move-me");
+  var finalX = e.clientX, finalY = e.clientY
+
+}
+
 $(function () {
   $('#result').hide()
   $('#fact-form').submit(calculateFact);
