@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="./script/jquery.js"></script>
+  <link rel="stylesheet" href="./style/bootstrap.min.css">
+  <link rel="stylesheet" href="./style/bootstrap-grid.min.css">
+  <link rel="stylesheet" href="./style/bootstrap-reboot.min.css">
+  <script src="./script/bootstrap.min.js"></script>
+  <script src="./script//bootstrap.bundle.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="./style/index.css" />
+  <title>Matthew Dray ISP Project 1</title>
+</head>
+
+<body>
+  <div id="B" class="jumbotron jumbotron-fluid">
+    <h3>Matthew Dray</h3>
+    <!-- Video Here -->
+    <h5 class="text-center">Current Time</h5>
+    <h1 class="text-center" id="current-Time"></h1>
+    <h5 class="text-center">Browser Information</h5>
+    <h2 class="text-center" id="browser"></h2>
+    <div class="containter text-center">
+      <video height="200" controls>
+        <source src="./img/med-isp.mp4" type="video/mp4">
+        Your browser doesn't support this video tag
+      </video>
+    </div>
+  </div>
+  <div class="container">
+    <div id="C">
+      <div id="factorial">
+        <h2>Factorial Calculator</h2>
+        <form class="container" id="fact-form">
+          <div class="form-group">
+            <input class="form-control" type="text" id="factorial-input"
+              placeholder="Enter The Base Number For The Factorial" />
+          </div>
+          <button class="btn btn-dark" id="factorial-button" type="submit">Calculate!</button>
+        </form>
+        <div id="result">
+          <h2>Result</h2>
+          <div id="result-container" class="jumbotron">
+            <h1 id="result-header"></h1>
+            <button id="fact-close">^</button>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h2>Interactive Animation</h2>
+        <p class="text-center">Click To Move The Cat Around</p>
+        <div id="interactive-anim">
+          <img src="./img/cat-min.png" alt="A Cat picture" id="move-me">
+        </div>
+      </div>
+    </div>
+    <footer class="footer navbar-fixed-bottom">
+      Completed at <time>9/28/2020 12:52AM</time>
+    </footer>
+  </div>
+  <script src="script/index.js"></script>
+</body>
+
+</html>
