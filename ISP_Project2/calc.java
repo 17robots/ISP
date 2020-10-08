@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 class Calc {
   private static void PrintTitle() {
     System.out.println("Calculator By Matthew Dray");
@@ -16,8 +18,30 @@ class Calc {
   }
 
   public static void main(String[] args) {
-    char operation;
-    int num1, num2;
+    String operation;
+    double num1, num2;
     PrintTitle();
+    Scanner in = new Scanner(System.in);
+    boolean exitMenu = false;
+    do {
+      PrintMenu();
+      operation = in.next();
+      switch (operation) {
+        case "+":
+        case "-":
+        case "*":
+        case "/":
+        case "%":
+
+          break;
+        case "q":
+          exitMenu = true;
+          break;
+        default:
+          System.out.println("Please Select An Item On The Menu");
+          break;
+      }
+    } while (!exitMenu);
+    in.close();
   }
 }
