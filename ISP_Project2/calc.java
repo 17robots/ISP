@@ -1,6 +1,6 @@
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
+import java.util.InputMismatchException;
 
 class Calc {
 
@@ -21,42 +21,62 @@ class Calc {
     }
   }
 
-  public static ArrayList<Double> GetNumbers(Double a, Double b, Scanner in) {
+  public static ArrayList<Double> GetNumbers(Scanner in) {
     ArrayList<Double> returnedList = new ArrayList<Double>();
-    System.out.println("Enter The First Number");
-    try {
-      returnedList.add(in.nextDouble());
-
-    } catch (Exception e) {
-
+    boolean loop = false;
+    while (!loop) {
+      System.out.println("Enter The First Number");
+      try {
+        returnedList.add(in.nextDouble());
+        loop = true;
+      } catch (InputMismatchException e) {
+        System.out.println("Please Enter a Valid Number.");
+        in.nextLine();
+      }
+    }
+    loop = false;
+    while (!loop) {
+      System.out.println("Enter The Second Number");
+      try {
+        returnedList.add(in.nextDouble());
+        loop = true;
+      } catch (InputMismatchException e) {
+        System.out.println("Please Enter a Valid Number");
+        in.nextLine();
+      }
     }
     return returnedList;
   }
 
-  public static String GetOperation(Scanner scan) {
+  public static ArrayList<String> GetOperation(Scanner scan) {
+    ArrayList<String> returnedOps = new ArrayList<String>();
+    returnedOps.add("");
+    returnedOps.add("");
     String returnedString = "";
     boolean isFinished = false;
     do {
       System.out.println("Choose Operation");
-      if (returnedString != "") {
-        System.out.println("Current Operation: " + returnedString);
+      if (!returnedOps.get(1).equals("")) {
+        System.out.println("Current Operation: " + returnedOps.get(1));
       }
       System.out.println("+ - Addition");
       System.out.println("- - Subtraction");
       System.out.println("* - Multiplication");
       System.out.println("/ - Division");
       System.out.println("% - Modulus");
-      if (returnedString != "") {
+      if (!returnedOps.get(1).equals("")) {
         System.out.println("c - Confirm Operation");
       }
       System.out.println("q - quit");
       returnedString = scan.nextLine();
-      switch (returnedString) {
+      returnedOps.set(0, returnedString);
+      switch (returnedOps.get(0)) {
         case "+":
         case "-":
         case "*":
         case "/":
         case "%":
+          returnedOps.set(1, returnedString);
           break;
         case "q":
           isFinished = true;
@@ -70,18 +90,22 @@ class Calc {
           break;
       }
     } while (!isFinished);
-    return returnedString;
+    return returnedOps;
   }
 
   public static void main(String[] args) {
     Scanner in = new Scanner(System.in);
-    String op;
+    ArrayList<Double> numbers;
+    ArrayList<String> ops;
     do {
-      op = GetOperation(in);
-      if (!op.equals("q")) {
-
+      ops = GetOperation(in);
+      if (!ops.get(0).equals("q")) {
+        numbers = GetNumbers(in);
+        System.out.println(numbers.get(0) + " " + ops.get(1) + " " + numbers.get(1) + " = "
+            + PerformOperation(numbers.get(0), numbers.get(1), ops.get(1)));
+        in.nextLine();
       }
-    } while (!op.equals("q"));
+    } while (!ops.get(0).equals("q"));
     in.close();
     return;
   }
