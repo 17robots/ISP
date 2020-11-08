@@ -2,6 +2,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./index.css"/>
   <title>Calculator</title>
   <%!
       public double calculate(double a, double b, String op) {
@@ -13,7 +14,7 @@
         case "sub":
           result = (double)(a - b);
           break;
-        case "mult":
+        case "mul":
           result = (double)(a * b);
           break;
         case "div":
@@ -32,8 +33,8 @@
 
 <body>
   <div class="container">
-    <form action="index.jsp" method="post" id="equation">
-      <input type="number" name="number1" placeholder="First Number" id="num1" step=any>
+    <form action="http://localhost:8080/isp/pa2/calc.jsp" method="post" id="equation">
+      <input type="number" name="number1" placeholder="First Number" id="num1" value="<%=request.getParameter("number1")%>" step=any>
       <Select name="operation" id="operation">
         <option value="add">+</option>
         <option value="sub">-</option>
@@ -41,7 +42,7 @@
         <option value="div">/</option>
         <option value="mod">%</option>
       </Select>
-      <input type="number" name="number2" placeholder="Second Number" id="num2" step=any>
+      <input type="number" name="number2" placeholder="Second Number" id="num2" value="<%=request.getParameter("number2")%>" step=any>
       <input type="submit" value="=">
     </form>
     <span id="answer">
@@ -52,11 +53,16 @@
         double answer;
         if((num1 != "" && num1 != null) && (num2 != null && num2 != "")) {
           try {
-              answer = calculate(Double.parseDouble(num1), Double.parseDouble(num2), operation);
-            if(Double.isInfinite(answer)) {
-              out.println("Error: Divide By 0");
+            double number1 = Double.parseDouble(num1), number2 = Double.parseDouble(num2);
+            if(!operation.equals("mod") || (number1 == Math.floor(number1) && number2 == Math.floor(number2))) {
+              answer = calculate(number1, number2, operation);
+              if(Double.isInfinite(answer)) {
+                out.println("Error: Divide By 0");
+              } else {
+                out.println(answer);
+              }
             } else {
-              out.println(answer);
+              out.println("Please Use Integers With Mod");
             }
           } catch(NumberFormatException e) {
             out.println("Please Make Sure Each Number Input Has a Value");

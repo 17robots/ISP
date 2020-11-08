@@ -8,7 +8,7 @@
 </head>
 <body>
 <div class="container">
-  <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" id="equation">
+  <form action="http://localhost/isp/pa2/calc.php" method="post" id="equation">
     <input type="number" name="number1" placeholder="First Number" value="<?php echo $_POST['number1'];?>" id="num1" step=any required>
     <Select name="operation" id="operation">
       <option value="add">+</option>
@@ -52,6 +52,8 @@
         if($num1 != "" && $num2 != "") {
           if(doubleval($num2) == 0 && $operation == "div") {
             echo "Error divide by 0";
+          } else if((!ctype_digit($num1) || !ctype_digit($num2)) && $operation == "mod") {
+            echo "Error, Use Ints With Modulus";
           } else {
             echo calculate(doubleval($num1), doubleval($num2), $operation); 
           }

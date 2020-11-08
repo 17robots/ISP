@@ -101,8 +101,13 @@ class Calc {
       ops = GetOperation(in);
       if (!ops.get(0).equals("q")) {
         numbers = GetNumbers(in);
-        System.out.println(numbers.get(0) + " " + ops.get(1) + " " + numbers.get(1) + " = "
-            + PerformOperation(numbers.get(0), numbers.get(1), ops.get(1)));
+        if ((numbers.get(0) != Math.floor(numbers.get(0)) || numbers.get(1) != Math.floor(numbers.get(1)))
+            && ops.get(1).equals("%")) {
+          System.out.println("Please Use Integers For Modulus Operations");
+        } else {
+          System.out.println(numbers.get(0) + " " + ops.get(1) + " " + numbers.get(1) + " = "
+              + PerformOperation(numbers.get(0), numbers.get(1), ops.get(1)));
+        }
         in.nextLine();
       }
     } while (!ops.get(0).equals("q"));
