@@ -1,0 +1,259 @@
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+  background: rgba(0, 0, 0, .75)
+}
+
+.modal {
+  max-width: 90%;
+  background: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  position: fixed;
+  top: 20vh;
+  left: 5%;
+}
+
+.modal__header {
+  padding: 1rem;
+  background: #5101d1;
+  color: white;
+}
+
+.modal__header h1 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.modal__content {
+  padding: 1rem;
+}
+
+.modal__actions {
+  display: flex;
+  justify-content: flex-end;
+  padding: 1rem;
+}
+
+@media (min-width: 768px) {
+  .modal {
+      width: 30rem;
+      left: calc((100% - 30rem) / 2);
+  }
+}
+
+.lds-dual-ring {
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+}
+.lds-dual-ring:after {
+  content: " ";
+  display: block;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border-radius: 50%;
+  border: 6px solid #5101d1;
+  border-color: #5101d1 transparent #5101d1 transparent;
+  animation: lds-dual-ring 1.2s linear infinite;
+}
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.spinner {
+    margin: 25% auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.events-control {
+  text-align: center;
+  border: 1px solid #5101d1;
+  padding: 1rem;
+  margin: 2rem auto;
+  width: 30rem;
+  max-width: 80%;
+}
+
+.lds-roller {
+display: inline-block;
+position: relative;
+width: 80px;
+height: 80px;
+}
+.lds-roller div {
+animation: lds-roller 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+transform-origin: 40px 40px;
+}
+.lds-roller div:after {
+content: " ";
+display: block;
+position: absolute;
+width: 7px;
+height: 7px;
+border-radius: 50%;
+background: #5101d1;
+margin: -4px 0 0 -4px;
+}
+.lds-roller div:nth-child(1) {
+animation-delay: -0.036s;
+}
+.lds-roller div:nth-child(1):after {
+top: 63px;
+left: 63px;
+}
+.lds-roller div:nth-child(2) {
+animation-delay: -0.072s;
+}
+.lds-roller div:nth-child(2):after {
+top: 68px;
+left: 56px;
+}
+.lds-roller div:nth-child(3) {
+animation-delay: -0.108s;
+}
+.lds-roller div:nth-child(3):after {
+top: 71px;
+left: 48px;
+}
+.lds-roller div:nth-child(4) {
+animation-delay: -0.144s;
+}
+.lds-roller div:nth-child(4):after {
+top: 72px;
+left: 40px;
+}
+.lds-roller div:nth-child(5) {
+animation-delay: -0.18s;
+}
+.lds-roller div:nth-child(5):after {
+top: 71px;
+left: 32px;
+}
+.lds-roller div:nth-child(6) {
+animation-delay: -0.216s;
+}
+.lds-roller div:nth-child(6):after {
+top: 68px;
+left: 24px;
+}
+.lds-roller div:nth-child(7) {
+animation-delay: -0.252s;
+}
+.lds-roller div:nth-child(7):after {
+top: 63px;
+left: 17px;
+}
+.lds-roller div:nth-child(8) {
+animation-delay: -0.288s;
+}
+.lds-roller div:nth-child(8):after {
+top: 56px;
+left: 12px;
+}
+@keyframes lds-roller {
+0% {
+  transform: rotate(0deg);
+}
+100% {
+  transform: rotate(360deg);
+}
+}
+
+.main-content {
+  margin: 4rem 2.5rem;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+.form-control label,
+.form-control input,
+.form-control textarea {
+  width: 100%;
+  display: block;
+  border-radius: 3px;
+}
+
+.form-control label {
+  margin-bottom: 0.5rem;
+}
+
+.form-control {
+  margin-bottom: 1rem;
+}
+
+.form-actions button,
+.btn {
+  background: #5101d1;
+  font: inherit;
+  border: 1px solid #5101d1;
+  border-radius: 3px;
+  padding: 0.25rem 1rem;
+  margin-right: 1rem;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.26);
+  color: white;
+  cursor: pointer;
+}
+
+.form-actions button:hover,
+.form-actions button:active,
+.btn:hover,
+.btn:active {
+  background: #6219d6;
+  border-color: #6219d6;
+}
+
+.form-control input {
+    border-radius: 3px;
+    /* padding: .5rem .3rem; */
+    border: 1px solid #cccccc;
+}
+
+.form-actions button {
+    background: #6d01d1;
+    font: inherit;
+    border: 1px solid #6d01d1;
+    border-radius: 3px;
+    padding: .4rem 1rem;
+    margin-right: 1rem;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, .26);
+    color: white;
+    cursor: pointer;
+}
+
+ul {
+  list-style: none;
+}
+
+.books__list-item {
+  display: flex;
+  justify-content: space-evenly;
+  gap: 1rem;
+  align-items: center;
+  box-shadow: 0px 0px 2px 2px rgba(0, 0, 0, .15);
+  border-radius: 2px;
+  width: 80%;
+  margin: auto;
+  margin-bottom: 2rem;
+}
+
+.books-control {
+  display: block;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}

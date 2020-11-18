@@ -1,46 +1,71 @@
 <?php
   include_once("../DB/Connection.php");
-  public class Book {
+  class Book {
     // members
     public $id;
-    public $tite;
+    public $title;
     public $price;
     public $quantity;
     public $discontinued;
 
     // constuctor
-    public function __construct($title, $price, $quantity, $discontinued) {
-      $this->title = $tite;
-      $this->price = $price;
-      $this->quantity = $quantity;
-      $this->discontinued = $discontinued;
+    public function __construct() {
+      $this->id = -1;
+      $this->title = "";
+      $this->price = 0;
+      $this->quantity = 0;
+      $this->discontinued = false;
     }
 
-    public function __construct($id, $title, $price, $quantity, $discontinued) {
-      $this->id = $id;
-      $this->title = $tite;
-      $this->price = $price;
-      $this->quantity = $quantity;
-      $this->discontinued = $discontinued;
+    public static function ForInsert($title, $price, $quantity) {
+      $instance = new self();
+      $instance->title = $title;
+      $instance->price = $price;
+      $instance->quantity = $quantity;
+      return $instance;
+    }
+
+    public static function ForUpdate($title, $price, $quantity, $discontinued) {
+      $instance = new self();
+      $instance->title = $title;
+      $instance->price = $price;
+      $instance->quantity = $quantity;
+      $instance->discontinued = $discontinued;
+      return $instance;
+    }
+
+    public static function ForRead($id, $title, $price, $quantity, $discontinued) {
+      $instance = new self();
+      $instance->id = $id;
+      $instance->title = $title;
+      $instance->price = $price;
+      $instance->quantity = $quantity;
+      $instance->discontinued = $discontinued;
+      return $instance;
     }
 
     // read
     public static function findAll($options) {
       $conn = new Connection();
-      $conn->open();
 
-      $sql = 'SELECT * FROM books;';
+      $sql = 'SELECT * FROM books';
 
       foreach($options as $key => $value) {
-        $sql += ' WHERE ' . $key . ' = ' . $value;
+        if(is_numeric($value)) {
+          $sql .= " WHERE $key = $value";
+        } else {
+          $sql .= " WHERE $key = '$value'";
+        }
       }
+
+      $sql .= ' ORDER BY ID';
       
-      $result = msqli_query($conn->get_connection(), $sql);
+      $result = $conn->query($sql);
 
       $returnedArr = array();
-
-      while($row = mysqli_fetch_assoc($result)) {
-        array_push($returnedArr, new Book($row["id"], $row["title"], $row["price"], $row["quantity"], $row["discontinued"]));
+      if(!$result) return $returnedArr;
+      while($row = $result->fetch_assoc()) {
+        array_push($returnedArr, Book::ForRead(intval($row["id"]), $row["title"], $row["price"], $row["quantity"], intval($row["discontinued"])));
       }
 
       $conn->close();
@@ -54,14 +79,14 @@
       $conn = new Connection();
       $conn->open();
 
-      $sql = "SELECT * FROM books WHERE id = " . $id . ';';
-      $result = mysqli_query($conn->get_connection(), $sql);
+      $sql = "SELECT * FROM books WHERE id = $id;";
+      $result = $conn->query($sql);
 
-      if(mysqli_num_rows($result) > 0) {
-        $returnedBook = new Book(-1, "", -1, -1, 0); // return the error version of the Book to signal there was a problem with the function
+      if(mysqli_num_rows($result) > 1) {
+        $returnedBook = new Book(); 
       } else {
         $row = mysqli_fetch_assoc($result);
-        $returnedBook = new Book($row["id"], $row["title"], $row["price"], $row["quantity"], $row["discontinued"]);
+        $returnedBook = Book::ForRead(intval($row["id"]), $row["title"], $row["price"], $row["quantity"], intval($row["discontinued"]));
       }
 
       $conn->close();
@@ -71,32 +96,32 @@
 
     // create
     public function save() {
-      $result;
-      $error;
       $conn = new Connection();
       $conn->open();
-
-      $sql = " Insert into " . $conn->get_table() . " (title, price, quantity) VALUES ('" . $title . "', " . $price . ", " . $quantity . ");";
-       
-      if(mysqli_query($conn->get_connection(), $sql)) {
-        
-        $result = true;
+      $result;
+      $sql;
+      if($this->id == -1) {
+        $sql = "insert into books (title, price, quantity) values('$this->title', $this->price, $this->quantity);";
       } else {
-        $result = false;
-        $error = mysql_error($conn->get_connection());
+        $sql = "update books set title = '$this->title', price = $this->price, quantity = $this->quantity, discontinued = $this->discontinued where id = $this->id;";
       }
-      
-      $conn->close();
-    }
 
-    // update
-    public static function updateById($id, $newOptions) {
-      
+      $result = $conn->query($sql);
+      if($result && $this->id == -1) $this->id = $conn->connection->insert_id;
+      $conn->close();
+      return $result;
     }
 
     // delete
     public static function deleteById($id) {
-      
+      $conn = new Connection();
+      $conn->open();
+
+      $sql = "DELETE FROM books WHERE id = $id;";
+
+      $result = $conn->query($sql);
+      $conn->close();
+      return $result;
     }
   }
 ?>
